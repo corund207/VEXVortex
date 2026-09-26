@@ -6,15 +6,27 @@
 #   1. Connect jonahchang207/VEXVortex in Codemagic, choose "codemagic.yaml".
 #   2. Create variable groups: `supabase_prod` (SUPABASE_URL, SUPABASE_ANON_KEY),
 #      plus Apple signing (bundle id, provisioning, App Store Connect API key).
-#   3. Run the ios-dev workflow, then tag (v0.1.0) for TestFlight.
+#   3. Codemagic dashboard -> Team settings -> Integrations -> App Store
+#      Connect -> add your API key (issuer ID, key ID, .p8) and name the
+#      integration exactly "vexvortex_asc" (or edit `integrations.app_store_connect`
+#      below to match whatever name you actually gave it). This is required
+#      for ios-testflight's `publishing.app_store_connect.auth: integration`
+#      and is also what `app-store-connect fetch-signing-files` authenticates with.
+#   4. Run the ios-dev workflow, then tag (v0.1.0) for TestFlight.
 #
-# Docs: https://docs.codemagic.io/yaml-quick-start/
+# Docs: https://docs.codemagic.io/yaml-quick-start/ ,
+#       https://docs.codemagic.io/knowledge-base/app-store-connect-integration/
 
 workflows:
   ios-dev:
     name: iOS Dev Build
     max_build_duration: 60
     instance_type: mac_mini_m2
+    integrations:
+      # Same named integration as ios-testflight (see setup note above).
+      # `fetch-signing-files` below is ignore_failure: true, so a dev build
+      # still runs (unsigned) even before this integration exists.
+      app_store_connect: vexvortex_asc
     environment:
       groups:
         - supabase_prod
@@ -77,6 +89,10 @@ workflows:
     name: iOS TestFlight Release
     max_build_duration: 90
     instance_type: mac_mini_m2
+    integrations:
+      # Must match the name you gave this integration in the Codemagic
+      # dashboard (Team settings -> Integrations -> App Store Connect).
+      app_store_connect: vexvortex_asc
     environment:
       groups:
         - supabase_prod
