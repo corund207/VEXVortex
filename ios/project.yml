@@ -1,0 +1,73 @@
+# XcodeGen spec — generates VEXVortex.xcodeproj (not committed, see .gitignore).
+#
+# Why generated instead of a committed .pbxproj: this app is developed and
+# reviewed without local access to Xcode/macOS, so a hand-authored .pbxproj
+# can't be opened here to validate. The project is regenerated deterministically
+# from this file on every machine that has Xcode — locally (`brew install
+# xcodegen && xcodegen generate`) or on Codemagic (see codemagic.yaml).
+name: VEXVortex
+
+options:
+  bundleIdPrefix: com.jonahchang207
+  deploymentTarget:
+    iOS: "16.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    TARGETED_DEVICE_FAMILY: "1"
+    ENABLE_PREVIEWS: YES
+
+configFiles:
+  Debug: VEXVortex/Resources/Config/Debug.xcconfig
+  Release: VEXVortex/Resources/Config/Release.xcconfig
+
+targets:
+  VEXVortex:
+    type: application
+    platform: iOS
+    sources:
+      - path: VEXVortex
+        excludes:
+          - "Resources/Config/**"
+    info:
+      path: VEXVortex/Resources/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jonahchang207.vexvortex
+        PRODUCT_NAME: VEXVortex
+        CODE_SIGN_STYLE: Automatic
+
+  VEXVortexTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: VEXVortexTests
+    dependencies:
+      - target: VEXVortex
+
+  VEXVortexUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: VEXVortexUITests
+    dependencies:
+      - target: VEXVortex
+
+schemes:
+  VEXVortex:
+    build:
+      targets:
+        VEXVortex: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - VEXVortexTests
+        - VEXVortexUITests
+    archive:
+      config: Release

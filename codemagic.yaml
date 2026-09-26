@@ -31,6 +31,24 @@ workflows:
           test -n "$SUPABASE_URL"
           test -n "$SUPABASE_ANON_KEY"
           echo "Supabase config present (values redacted)."
+      - name: Install XcodeGen
+        script: |
+          set -e
+          brew install xcodegen
+      - name: Generate Xcode project (XcodeGen)
+        script: |
+          set -e
+          cd ios
+          xcodegen generate
+      - name: Inject Supabase config into xcconfig (not printed)
+        script: |
+          set -e
+          CONFIG_DIR="ios/VEXVortex/Resources/Config"
+          {
+            echo "SUPABASE_HOST = ${SUPABASE_URL#https://}"
+            echo "SUPABASE_ANON_KEY = $SUPABASE_ANON_KEY"
+          } >> "$CONFIG_DIR/Local.xcconfig"
+          echo "Injected Supabase config into Local.xcconfig (values redacted from log)."
       - name: Set up keychain for dev signing
         ignore_failure: true
         script: |
@@ -82,6 +100,24 @@ workflows:
           test -n "$SUPABASE_ANON_KEY"
           test -n "$IOS_BUNDLE_ID"
           echo "Release config present (values redacted)."
+      - name: Install XcodeGen
+        script: |
+          set -e
+          brew install xcodegen
+      - name: Generate Xcode project (XcodeGen)
+        script: |
+          set -e
+          cd ios
+          xcodegen generate
+      - name: Inject Supabase config into xcconfig (not printed)
+        script: |
+          set -e
+          CONFIG_DIR="ios/VEXVortex/Resources/Config"
+          {
+            echo "SUPABASE_HOST = ${SUPABASE_URL#https://}"
+            echo "SUPABASE_ANON_KEY = $SUPABASE_ANON_KEY"
+          } >> "$CONFIG_DIR/Local.xcconfig"
+          echo "Injected Supabase config into Local.xcconfig (values redacted from log)."
       - name: Set up keychain
         ignore_failure: true
         script: |

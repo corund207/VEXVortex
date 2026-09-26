@@ -1,0 +1,17 @@
+// Shared build settings. Committed — contains no secrets.
+//
+// Real Supabase values are supplied one of two ways:
+//   1. Local dev: copy Local.xcconfig.example -> Local.xcconfig (gitignored)
+//      in this same directory and fill in your dev project's values.
+//   2. CI (Codemagic): codemagic.yaml writes Local.xcconfig from Codemagic
+//      environment variables just before the build step. Never printed.
+//
+// SUPABASE_HOST is a bare host (no "https://") because xcconfig treats `//`
+// as a comment delimiter and would silently truncate a scheme-prefixed URL.
+// AppConfig.swift prepends "https://" when constructing the request URL.
+#include? "Local.xcconfig"
+
+SUPABASE_HOST =
+SUPABASE_ANON_KEY =
+
+IPHONEOS_DEPLOYMENT_TARGET = 16.0

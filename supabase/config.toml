@@ -1,0 +1,36 @@
+# Supabase CLI config for local dev (`supabase start`).
+# Production project settings (URL, keys, schemas) are managed in the Supabase
+# dashboard and injected as Codemagic variables — never hardcoded here.
+
+project_id = "vexvortex"
+
+[api]
+enabled = true
+port = 54321
+# `vex` holds all VEXVortex tables; keep `public` empty rather than dumping
+# domain tables into it (see root AGENTS.md).
+schemas = ["public", "vex"]
+extra_search_path = ["public", "vex"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = []
+jwt_expiry = 3600
+enable_signup = false
+
+[storage]
+enabled = true
+file_size_limit = "10MiB"
+
+[edge_runtime]
+enabled = true

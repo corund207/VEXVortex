@@ -1,0 +1,5 @@
+// Copy this file to "Local.xcconfig" (same directory) for local Xcode builds.
+// Local.xcconfig is gitignored — never commit real values.
+
+SUPABASE_HOST = your-project.supabase.co
+SUPABASE_ANON_KEY = your-anon-key-here

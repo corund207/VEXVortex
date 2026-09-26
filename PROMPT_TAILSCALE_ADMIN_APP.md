@@ -1,5 +1,7 @@
 # Prompt 2 — VEXVortex Tailscale-Only Admin App
 
+> ⚠️ **LEGACY — not part of VEXVortex (the VEX stats app).** This is a pre-rebrand build prompt for a self-hosted homelab admin control plane. It predates the pivot to the VEX Robotics stats app described in root `README.md` and does not apply to that project. Kept temporarily pending move to a separate self-host repo — do not execute this prompt against the current codebase.
+
 You are GPT-6 Astra. Build a polished, secure private control-plane web application in the VEXVortex monorepo. It manages one Debian 13 MacBook backend appliance and is reachable only over Tailscale. This is an administrative app, not a public Supabase client.
 
 ## Scope

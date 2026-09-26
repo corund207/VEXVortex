@@ -6,7 +6,7 @@ VEXVortex is a single-maintainer project by **Jonah Chang (@jonahchang207)**. Hi
 
 1. Open an issue first: what, why, rollback plan, expected test evidence.
 2. Keep changes small, declarative, version-pinned, and reversible.
-3. Read `AGENTS.md` plus the nested `AGENTS.md` for the area you touch (`apps/admin`, `infra`, `docs`, `security`).
+3. Read `AGENTS.md` plus the nested `AGENTS.md` for the area you touch. Note: `apps/admin/`, `infra/`, and `security/AGENTS.md` are legacy pre-rebrand content pending move to a separate repo — see the banner at the top of each file. For current work, `docs/AGENTS.md`, `ios/README.md`, and `supabase/README.md` reflect the actual VEXVortex scope.
 4. Never include secrets, tokens, private IPs, or personal identifiers.
 
 ## Pull requests
